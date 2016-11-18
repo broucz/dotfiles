@@ -105,11 +105,6 @@ mirrorfiles() {
     # `.gitconfig`. This prevents them being committed to the repository.
     rsync -avz --quiet ${DOTFILES_DIRECTORY}/git/gitconfig  ${HOME}/.gitconfig
 
-    # Force remove the vim directory if it's already there.
-    if [ -e "${HOME}/.vim" ]; then
-        rm -rf "${HOME}/.vim"
-    fi
-
     # Create the necessary symbolic links between the `.dotfiles` and `HOME`
     # directory. The `bash_profile` sources other files directly from the
     # `.dotfiles` repository.
@@ -119,10 +114,6 @@ mirrorfiles() {
     link "shell/inputrc"      ".inputrc"
     link "git/gitattributes"  ".gitattributes"
     link "git/gitignore"      ".gitignore"
-    link "vim"                ".vim"
-    link "vim/gvimrc"         ".gvimrc"
-    link "vim/vimrc"          ".vimrc"
-    link "tmux/tmux.conf"     ".tmux.conf"
 
     e_success "Dotfiles update complete!"
 }
@@ -142,7 +133,7 @@ fi
 seek_confirmation "Warning: This step may modify your OS X system defaults."
 
 if is_confirmed; then
-    bash ./bin/osxdefaults
+    bash ./bin/macos
     e_success "OS X settings updated! You may need to restart."
 else
     printf "Skipped OS X settings update.\n"

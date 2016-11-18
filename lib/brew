@@ -24,11 +24,9 @@ run_brew() {
             'bash'
             'bash-completion'
             'ffmpeg'
-            'macvim --override-system-vim'
             'node'
             'tree'
             'wget'
-            'tmux'
             'watchman'
             'flow'
         )
