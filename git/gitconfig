@@ -182,3 +182,7 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+
+[user]
+	name = broucz
+	email = broucapierre@gmail.com
