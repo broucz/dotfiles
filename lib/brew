@@ -29,6 +29,7 @@ run_brew() {
             'wget'
             'watchman'
             'flow'
+            'go'
         )
 
         for index in ${!desired_formulae[*]}
