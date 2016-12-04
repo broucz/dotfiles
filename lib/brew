@@ -30,6 +30,7 @@ run_brew() {
             'watchman'
             'flow'
             'go'
+            'yarn'
         )
 
         for index in ${!desired_formulae[*]}

@@ -23,6 +23,12 @@ source ./lib/utils
 source ./lib/brew
 source ./lib/npm
 
+# If missing, create go path target forlder
+GO_DIRECTORY="${HOME}/Code/go_path"
+if [[ ! -d  ${GO_DIRECTORY} ]]; then
+  mkdir -p ${GO_DIRECTORY}
+fi
+
 # Help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
     run_help

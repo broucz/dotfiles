@@ -24,4 +24,7 @@ export MANPAGER="less -X"
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # Golang
-export GOPATH=$HOME/Dev/go
+export GOPATH=$HOME/Code/go_path
+
+# Rust
+export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src

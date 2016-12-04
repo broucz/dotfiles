@@ -26,6 +26,7 @@ load_dotfiles() {
         $HOME/.dotfiles/shell/bash_paths # Path modifications
         $(brew --prefix)/etc/bash_completion # Bash completion (installed via Homebrew)
         $HOME/.bash_profile.local # Local and private settings not under version control (e.g. git credentials)
+        $HOME/.cargo/env
     )
 
     # if these files are readable, source them
