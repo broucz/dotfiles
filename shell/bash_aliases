@@ -31,6 +31,9 @@ alias c="cd ~/Code"
 # Golang folder
 alias gop="cd ~/Code/go_path/src/github.com"
 
+# Yarn
+alias yr="yarn"
+
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
