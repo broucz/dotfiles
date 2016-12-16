@@ -31,6 +31,7 @@ run_brew() {
             'flow'
             'go'
             'yarn'
+            'jid'
         )
 
         for index in ${!desired_formulae[*]}
