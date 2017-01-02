@@ -25,6 +25,7 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 # Golang
 export GOPATH=$HOME/Code/go_path
+export PATH=$PATH:$GOPATH/bin
 export GOROOT=`go env GOROOT`
 
 # Rust
