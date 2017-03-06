@@ -32,6 +32,7 @@ run_brew() {
             'go'
             'yarn'
             'jid'
+            'httpie'
         )
 
         for index in ${!desired_formulae[*]}
