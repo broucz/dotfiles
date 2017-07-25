@@ -35,7 +35,7 @@ alias gop="cd ~/Code/go_path/src/github.com"
 alias yr="yarn"
 
 # VSCode
-alias vs="code-insiders"
+alias vs="code"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
