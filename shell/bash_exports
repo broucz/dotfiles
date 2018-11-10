@@ -22,11 +22,3 @@ export MANPAGER="less -X"
 # Make new shells get the history lines from all previous
 # shells instead of the default "last window closed" history
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-
-# Golang
-export GOPATH=$HOME/Code/go_path
-export PATH=$PATH:$GOPATH/bin
-export GOROOT=`go env GOROOT`
-
-# Rust
-export RUST_SRC_PATH=~/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src

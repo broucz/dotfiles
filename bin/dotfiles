@@ -1,20 +1,6 @@
 #!/bin/bash
 
 DOTFILES_DIRECTORY="${HOME}/.dotfiles"
-DOTFILES_TARBALL_PATH="https://github.com/broucz/dotfiles/tarball/master"
-DOTFILES_GIT_REMOTE="git@github.com:broucz/dotfiles.git"
-
-# If missing, download and extract the dotfiles repository
-if [[ ! -d ${DOTFILES_DIRECTORY} ]]; then
-    printf "$(tput setaf 7)Downloading dotfiles...\033[m\n"
-    mkdir ${DOTFILES_DIRECTORY}
-    # Get the tarball
-    curl -fsSLo ${HOME}/dotfiles.tar.gz ${DOTFILES_TARBALL_PATH}
-    # Extract to the dotfiles directory
-    tar -zxf ${HOME}/dotfiles.tar.gz --strip-components 1 -C ${DOTFILES_DIRECTORY}
-    # Remove the tarball
-    rm -rf ${HOME}/dotfiles.tar.gz
-fi
 
 cd ${DOTFILES_DIRECTORY}
 
@@ -22,12 +8,6 @@ source ./lib/help
 source ./lib/utils
 source ./lib/brew
 source ./lib/npm
-
-# If missing, create go path target forlder
-GO_DIRECTORY="${HOME}/Code/go_path"
-if [[ ! -d  ${GO_DIRECTORY} ]]; then
-  mkdir -p ${GO_DIRECTORY}
-fi
 
 # Help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
@@ -45,39 +25,10 @@ do
     esac
 done
 
-# Before relying on Homebrew, check that packages can be compiled
-if ! type_exists 'gcc'; then
-    e_error "The XCode Command Line Tools must be installed first."
-    printf "  Download them from: https://developer.apple.com/downloads\n"
-    printf "  Then run: bash ~/.dotfiles/bin/dotfiles\n"
-    exit 1
-fi
-
 # Check for Homebrew
 if ! type_exists 'brew'; then
     e_header "Installing Homebrew..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
-# Check for git
-if ! type_exists 'git'; then
-    e_header "Updating Homebrew..."
-    brew update
-    e_header "Installing Git..."
-    brew install git
-fi
-
-# Initialize the git repository if it's missing
-if ! is_git_repo; then
-    e_header "Initializing git repository..."
-    git init
-    git remote add origin ${DOTFILES_GIT_REMOTE}
-    git fetch origin master
-    # Reset the index and working tree to the fetched HEAD
-    # (submodules are cloned in the subsequent sync step)
-    git reset --hard FETCH_HEAD
-    # Remove any untracked files
-    git clean -fd
 fi
 
 # Conditionally sync with the remote repository
@@ -87,8 +38,6 @@ else
     e_header "Syncing dotfiles..."
     # Pull down the latest changes
     git pull --rebase origin master
-    # Update submodules
-    git submodule update --recursive --init --quiet
 fi
 
 # Install and update packages
@@ -135,12 +84,12 @@ else
     exit 1
 fi
 
-# Ask before potentially overwriting OS X defaults
-seek_confirmation "Warning: This step may modify your OS X system defaults."
+# Ask before potentially overwriting macOS defaults
+seek_confirmation "Warning: This step may modify your macOS system defaults."
 
 if is_confirmed; then
     bash ./bin/macos
-    e_success "OS X settings updated! You may need to restart."
+    e_success "macOS settings updated! You may need to restart."
 else
-    printf "Skipped OS X settings update.\n"
+    printf "Skipped macOS settings update.\n"
 fi

@@ -5,7 +5,7 @@
 # Allow aliases to be with sudo
 alias sudo="sudo "
 
-# Easier navigation: .., ..., ~ and -
+# Easier navigation: .., ..., ....
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -27,12 +27,6 @@ alias catn="cat -n"
 
 # Code folder
 alias c="cd ~/Code"
-
-# Golang folder
-alias gop="cd ~/Code/go_path/src/github.com"
-
-# Yarn
-alias yr="yarn"
 
 # VSCode
 alias vs="code"
