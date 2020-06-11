@@ -1,5 +1,5 @@
 #!/bin/bash
 
-# bashrc
-
-[ -n "$PS1" ] && source ~/.bash_profile
+# History management
+export HISTCONTROL=ignoreboth
+export HISTSIZE=5000

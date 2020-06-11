@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Git add all to commit.
-ga() {
-  git add -A && git commit -m "$@"
-}

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Create and enter a temporary folder
-mkt() {
-  cd `mktemp -d /tmp/broucz-XXXXXX`
-}

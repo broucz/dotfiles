@@ -23,4 +23,6 @@ Options:
 
 ---
 
-Inspired by [Nicolas Gallagher's dotfiles](https://github.com/necolas/dotfiles).
+Inspired by:
+- [Nicolas Gallagher's dotfiles](https://github.com/necolas/dotfiles).
+- [Jon Gjengset's dotfiles](https://github.com/jonhoo/configs).

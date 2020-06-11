@@ -7,7 +7,6 @@ cd ${DOTFILES_DIRECTORY}
 source ./lib/help
 source ./lib/utils
 source ./lib/brew
-source ./lib/npm
 
 # Help text
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
@@ -25,12 +24,6 @@ do
     esac
 done
 
-# Check for Homebrew
-if ! type_exists 'brew'; then
-    e_header "Installing Homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
-
 # Conditionally sync with the remote repository
 if [[ $no_sync ]]; then
     printf "Skipped dotfiles sync.\n"
@@ -44,9 +37,21 @@ fi
 if [[ $no_packages ]]; then
     printf "Skipped package installations.\n"
 else
+    # Check for Homebrew
+    if ! type_exists 'brew'; then
+        e_header "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    fi
+
     printf "Updating packages...\n"
     # Install Homebrew formulae
     run_brew
+fi
+
+# Install Fisher
+if [ ! -f ~/.config/fish/functions/fisher.fish ]; then
+    e_header "Installing Fisher..."
+    /bin/bash -c "$(curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish)"
 fi
 
 link() {
@@ -63,22 +68,25 @@ mirrorfiles() {
     # Create the necessary symbolic links between the `.dotfiles` and `HOME`
     # directory. The `bash_profile` sources other files directly from the
     # `.dotfiles` repository.
-    link "shell/bashrc"       ".bashrc"
-    link "shell/bash_profile" ".bash_profile"
-    link "shell/curlrc"       ".curlrc"
-    link "shell/inputrc"      ".inputrc"
-    link "git/gitattributes"  ".gitattributes"
-    link "git/gitignore"      ".gitignore"
+    link "shell/bashrc"                          ".bashrc"
+    link "shell/.tmux.conf"                      ".tmux.conf"
+    link "shell/.config/alacritty/alacritty.yml" ".config/alacritty/alacritty.yml"
+    link "shell/.config/fish/config.fish"        ".config/fish/config.fish"
+    link "shell/.config/fish/fishfile"           ".config/fish/fishfile"
 
     e_success "Dotfiles update complete!"
 }
+
+if ! type_exists 'rustup'; then
+    e_header "Installing Rust..."
+    /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh)"
+fi
 
 # Ask before potentially overwriting files
 seek_confirmation "Warning: This step may overwrite your existing dotfiles."
 
 if is_confirmed; then
     mirrorfiles
-    source ${HOME}/.bash_profile
 else
     printf "Aborting...\n"
     exit 1
