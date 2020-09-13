@@ -10,10 +10,10 @@
 	d = "!git --no-pager diff --patch-with-stat"
 
 	# Commit alias
-	c = commit 
-	
+	c = commit
+
 	# Revert last comit
-	rl = "!git reset --soft HEAD~1" 
+	rl = "!git reset --soft HEAD~1"
 
 	# Stash helpers
 	ss = "!f() { git stash show stash@{$1} -p; }; f"
@@ -102,6 +102,10 @@
 	default = matching
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
+
+[pull]
+
+	rebase = true
 
 # URL shorthands
 
