@@ -1,0 +1,56 @@
+{
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[rust]": {
+    "editor.tabSize": 4
+  },
+  "editor.fontFamily": "JetBrains Mono, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.renderIndentGuides": false,
+  "editor.scrollBeyondLastLine": false,
+  "editor.tabSize": 2,
+  "explorer.compactFolders": false,
+  "explorer.openEditors.visible": 0,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "material-icon-theme.activeIconPack": "none",
+  "material-icon-theme.folders.theme": "none",
+  "prettier.singleQuote": true,
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "iTerm.app",
+  "vim.insertModeKeyBindings": [
+    {
+      "after": ["<Esc>"],
+      "before": ["j", "j"]
+    },
+    {
+      "after": ["<Esc>"],
+      "before": ["k", "k"]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<space>"],
+      "commands": ["workbench.action.files.save"]
+    }
+  ],
+  "vim.smartRelativeLine": true,
+  "vim.useSystemClipboard": true,
+  "window.newWindowDimensions": "maximized",
+  "window.title": "${activeEditorShort}",
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#252526",
+    "statusBar.background": "#000000",
+    "titleBar.activeBackground": "#252526"
+  },
+  "workbench.fontAliasing": "antialiased",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+  "workbench.tree.indent": 16,
+  "zenMode.fullScreen": false,
+  "zenMode.hideLineNumbers": false,
+  "zenMode.hideTabs": false
+}

@@ -1,105 +1,89 @@
 #!/bin/bash
 
 run_brew() {
+    p_header "- Updating Homebrew"
+    brew update
+    [[ $? ]] && p_success "Done"
 
-    # Check for Homebrew
-    if type_exists 'brew'; then
-        e_header "Updating Homebrew..."
-        # Use the latest version of Homebrew
-        brew update
-        [[ $? ]] && e_success "Done"
+    p_header "- Adding third-party repositories"
+    brew tap homebrew/cask-fonts # font-jetbrains-mono
+    [[ $? ]] && p_success "Done"
 
-        e_header "Adding third-party repositories..."
-        # Add the third-party repositories required for install
-        brew tap homebrew/cask-fonts # font-jetbrains-mono
-        brew tap weaveworks/tap # eksctl
-        [[ $? ]] && e_success "Done"
+    p_header "- Ugrading existing cask and formulae"
+    brew upgrade
+    [[ $? ]] && p_success "Done"
 
-        e_header "Updating any existing Homebrew formulae..."
-        # Upgrade any already-installed formulae
-        brew upgrade
-        [[ $? ]] && e_success "Done"
+    local list_formulae
+    local -a missing_formulae
+    local -a desired_formulae=(
+        'awscli'
+        'awscurl'
+        'bat'
+        'exa'
+        'fd'
+        'fish'
+        'fzf'
+        #'gdb' # No bottle (bin) for Apple Silicon.
+        'gh'
+        'git'
+        'gnupg'
+        'hey'
+        'httpie'
+        'jq'
+        'kind'
+        'neovim'
+        'node@14'
+        'sqlite'
+        'vegeta'
+    )
 
-        e_header "Checking status of desired Homebrew formulae..."
-        local list_formulae
-        local -a missing_formulae
-        local -a desired_formulae=(
-            'awscli'
-            'awscurl'
-            'bat'
-            'eksctl'
-            'exa'
-            'fish'
-            'gh'
-            'git'
-            'gnupg'
-            'httpie'
-            'jq'
-            'kubectl'
-            'linkerd'
-            'minikube'
-            'tmux'
-        )
+    local list_cask
+    local -a missing_cask
+    local -a desired_cask=(
+        'discord'
+        'font-jetbrains-mono'
+        'google-chrome'
+        'iterm2'
+        'nosql-workbench'
+        'notion'
+        'signal'
+        'slack'
+        'tunnelblick'
+        'vscodium'
+    )
 
-        local list_cask
-        local -a missing_cask
-        local -a desired_cask=(
-            'alacritty'
-            'bloomrpc'
-            'docker'
-	        'font-jetbrains-mono'
-            'google-chrome'
-            'insomnia'
-            'slack'
-            'tunnelblick'
-	        'visual-studio-code'
-        )
-
-        for index in ${!desired_formulae[*]}
-        do
-            if ! formula_exists ${desired_formulae[$index]}; then
-                # Store the name (and options) of every missing formula
-                missing_formulae=("${missing_formulae[@]}" "${desired_formulae[$index]}")
-            fi
-        done
-
-        for index in ${!desired_cask[*]}
-        do
-            if ! cask_exists ${desired_cask[$index]}; then
-                # Store the name (and options) of every missing formula
-                missing_cask=("${missing_cask[@]}" "${desired_cask[$index]}")
-            fi
-        done
-
-        if [[ "$missing_formulae" ]]; then
-            # Convert the array of missing formula into a list of space-separate strings
-            list_formulae=$( printf "%s " "${missing_formulae[@]}" )
-
-            e_header "Installing missing Homebrew formulae..."
-            # Install all missing formulae
-            brew install $list_formulae
-
-            [[ $? ]] && e_success "Done"
+    for index in ${!desired_formulae[*]}
+    do
+        if ! formula_exists ${desired_formulae[$index]}; then
+            missing_formulae=("${missing_formulae[@]}" "${desired_formulae[$index]}")
         fi
+    done
 
-        if [[ "$missing_cask" ]]; then
-            # Convert the array of missing formula into a list of space-separate strings
-            list_cask=$( printf "%s " "${missing_cask[@]}" )
-
-            e_header "Installing missing Homebrew cask..."
-            # Install all missing cask
-            brew cask install $list_cask
-
-            [[ $? ]] && e_success "Done"
+    for index in ${!desired_cask[*]}
+    do
+        if ! cask_exists ${desired_cask[$index]}; then
+            missing_cask=("${missing_cask[@]}" "${desired_cask[$index]}")
         fi
+    done
 
-        # Remove outdated versions from the Cellar
-        brew cleanup
-    else
-        printf "\n"
-        e_error "Error: Homebrew not found."
-        printf "Aborting...\n"
-        exit
+    if [[ "$missing_formulae" ]]; then
+        list_formulae=$( printf "%s " "${missing_formulae[@]}" )
+
+        p_header "- Installing missing formulae"
+        brew install $list_formulae
+        [[ $? ]] && p_success "Done"
     fi
 
+    if [[ "$missing_cask" ]]; then
+        list_cask=$( printf "%s " "${missing_cask[@]}" )
+
+        p_header "- Installing missing cask"
+        brew install --cask $list_cask
+
+        [[ $? ]] && p_success "Done"
+    fi
+
+    p_header "- Clean up"
+    brew cleanup
+    [[ $? ]] && p_success "Done"
 }

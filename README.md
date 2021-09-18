@@ -12,17 +12,14 @@ Options:
         <td>Help</td>
     </tr>
     <tr>
-        <td><code>--no-packages</code></td>
-        <td>Suppress package updates</td>
-    </tr>
-    <tr>
-        <td><code>--no-sync</code></td>
-        <td>Suppress pulling from the remote repository</td>
+        <td><code>--skip-pkg</code></td>
+        <td>Skip package updates</td>
     </tr>
 </table>
 
 ---
 
 Inspired by:
+
 - [Nicolas Gallagher's dotfiles](https://github.com/necolas/dotfiles).
 - [Jon Gjengset's dotfiles](https://github.com/jonhoo/configs).
