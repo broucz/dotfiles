@@ -64,9 +64,6 @@ else
 end
 
 setenv CARGO_INCREMENTAL 1
-#if test -e ~/.cargo-target
-#	setenv CARGO_TARGET_DIR ~/.cargo-target
-#end
 
 function mk
 	command mkdir -p $argv

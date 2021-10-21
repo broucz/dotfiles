@@ -23,18 +23,18 @@ run_brew() {
         'fd'
         'fish'
         'fzf'
-        #'gdb' # No bottle (bin) for Apple Silicon.
+        #'gdb' # Pending Apple Silicon support.
         'gh'
         'git'
         'gnupg'
         'hey'
         'httpie'
         'jq'
+        'k6'
         'kind'
         'neovim'
         'node@14'
         'sqlite'
-        'vegeta'
     )
 
     local list_cask
